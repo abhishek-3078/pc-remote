@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<html>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PC Remote</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script>
+
+      var socket = io.connect("/"); // Replace with your laptop's IP
+      
+      function sendText(c){
+        socket.emit("character_send",{char:c})
+      }
+      function moveMouse(x, y) {
+        socket.emit("move_mouse", { x: x, y: y });
+      }
+      function dragMouse(x,y){
+        socket.emit("drag_mouse",{x:x,y:y})
+      }
+      function clickEvent(x = 1, y = 2) {
+        socket.emit("click", { x: x, y: y });
+      }
+      function rightclick(){
+        socket.emit("rightclick");
+      }
+      function scroll(y){
+        
+        socket.emit("scroll",{y:y})
+      }
+      // // You can handle server responses here if needed
+      socket.on("response", function (data) {
+        console.log(data);
+      });
+      const sendhello = () => {
+        x = document.getElementById("x").value;
+        y = document.getElementById("y").value;
+
+        fetch("/move", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ x: x, y: y }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            // document.getElementsByTagName("body")[0].innerText=data["message"]
+            // alert(data["message"])
+            console.log(data);
+          })
+          .catch((e) => {
+            document.getElementsByClassName("error")[0].innerText = e;
+          });
+      };
+    </script>
+  </head>
+  <body>
+    <!-- <input type="text" id="x" />
+    <input type="text" id="y" /> -->
+    <!-- <button onclick="sendhello()">check</button> -->
+    <div class="nav"> PC Remote</div>
+    <div id="error"></div>
+    <div>
+    <canvas id="touchpad"></canvas>
+  </div>
+    <input type="text" id="keyboard">
+    
+    <label for="keyboard" class="imgclass"> <img src="https://icon-library.com/images/keyboard-vector-icon/keyboard-vector-icon-10.jpg" alt="image "> </label>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    <script>
+
+      
+ 
+    </script>
+    <!-- Your HTML controls for mouse movements go here -->
+  </body>
+</html>

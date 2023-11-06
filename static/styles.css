@@ -1,0 +1,44 @@
+body{
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 83px);
+    position: relative;
+  }
+  #touchpad {
+    display: block;
+    width: 400px;
+    height: 400px;
+    background-color: lightgray;
+    border: 2px solid rgb(0, 0, 0);
+    margin-top: 200px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .nav {
+    height: 50px;
+    /* padding: 12px; */
+    color: white;
+    font-size: 1.4rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 800;
+    line-height: 50px;
+    text-align: center;
+    background: rgb(101, 101, 243);
+    margin-bottom: 20px;
+  }
+  .imgclass{
+    position: absolute;
+    bottom:10px;
+    right: 0px;
+  }
+  .imgclass img{
+    height: 60px;
+  }
+  #keyboard{
+    height: 20px;
+    width: 20px;
+    left: 40px;
+    position: relative;
+    bottom:40px;
+    z-index: -1;
+  }
